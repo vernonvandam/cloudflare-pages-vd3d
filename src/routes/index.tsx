@@ -4,8 +4,32 @@ import { Button } from "@/components/ui/button";
 import { ConsultationBand, SiteFooter, SiteHeader } from "@/components/site-shell";
 import { consultationUrl, contactEmail, services } from "@/lib/services";
 import hero from "@/assets/precision-hero.jpg";
+import processBrief from "@/assets/process-1-brief.webp";
+import processPrototype from "@/assets/process-2-prototype.webp";
+import processProduce from "@/assets/process-3-produce.webp";
 import { ProofSection } from "@/components/proof-section";
 import { ShopTeaser } from "@/components/shop-teaser";
+
+const processSteps = [
+  {
+    title: "Tell us the problem",
+    image: processBrief,
+    alt: "A dimensioned sketch of a bracket next to the broken original part",
+    text: "Send what you’ve got: a sketch, photos, measurements, a broken part or a finished file. Tell us what it needs to do, how many you need and when.",
+  },
+  {
+    title: "Design & prototype",
+    image: processPrototype,
+    alt: "The bracket modelled in CAD on a laptop beside a 3D printer printing the prototype",
+    text: "We design or refine the part and print a prototype. You test it, we adjust, so mistakes are caught on one part, not three hundred.",
+  },
+  {
+    title: "Produce",
+    image: processProduce,
+    alt: "A short run of finished black brackets, one engraved with a logo",
+    text: "Once it’s right, we print your run, add any engraving and finish it. Print-ready files typically take 1–2 days; design to first print, 3–5 days.",
+  },
+];
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -160,38 +184,33 @@ function Index() {
                 <div className="eyebrow">HOW IT WORKS</div>
                 <h2>Three steps. One point of contact.</h2>
               </div>
-              <Button asChild variant="link">
+              <Button asChild variant="link" className="process-cta">
                 <a href={consultationUrl}>
                   Get a quote <ArrowUpRight />
                 </a>
               </Button>
             </div>
-            <div className="process-grid">
-              <div>
-                <span className="process-number">01 / TELL US THE PROBLEM</span>
-                <h3>Send what you’ve got.</h3>
-                <p>
-                  A sketch, photos, measurements, a broken part or a finished file. Tell us what it
-                  needs to do, how many you need and when.
-                </p>
-              </div>
-              <div>
-                <span className="process-number">02 / DESIGN &amp; PROTOTYPE</span>
-                <h3>Test it before you commit.</h3>
-                <p>
-                  We design or refine the part and print a prototype. You test it, we adjust, so
-                  mistakes are caught on one part, not three hundred.
-                </p>
-              </div>
-              <div>
-                <span className="process-number">03 / PRODUCE</span>
-                <h3>Print, engrave, deliver.</h3>
-                <p>
-                  Once it’s right, we print your run, add any engraving and finish it. Print-ready
-                  files typically take 1–2 days; design to first print, 3–5 days.
-                </p>
-              </div>
-            </div>
+            <ol className="process-steps">
+              {processSteps.map((step, index) => (
+                <li key={step.title} className="process-step">
+                  <div className="process-art">
+                    <img src={step.image} alt={step.alt} width={610} height={340} loading="lazy" />
+                    {index < processSteps.length - 1 && (
+                      <ArrowRight className="process-arrow" aria-hidden="true" />
+                    )}
+                  </div>
+                  <div className="process-text">
+                    <h3>
+                      <span className="process-badge" aria-hidden="true">
+                        {String(index + 1).padStart(2, "0")}
+                      </span>
+                      {step.title}
+                    </h3>
+                    <p>{step.text}</p>
+                  </div>
+                </li>
+              ))}
+            </ol>
           </div>
         </section>
         <section id="about" className="section site-width about-band">

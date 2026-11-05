@@ -472,28 +472,82 @@ a {
   display: block;
 }
 .process-section {
-  background: var(--muted);
+  /* Matches the illustration backgrounds so the art sits seamlessly on the section. */
+  background: #f3f4f3;
 }
-.process-grid {
+.process-cta {
+  color: oklch(0.5 0.14 143);
+}
+.process-steps {
+  list-style: none;
+  margin: 44px 0 0;
+  padding: 0;
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 50px;
-  margin-top: 50px;
+  column-gap: 56px;
 }
-.process-number {
-  font-size: 12px;
-  color: var(--muted-foreground);
-  border-top: 1px solid var(--border);
-  padding-top: 20px;
+.process-step {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+.process-art {
+  position: relative;
+}
+.process-art img {
   display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 610 / 340;
 }
-.process-grid h3 {
-  font-size: 20px;
-  font-weight: 500;
-  margin: 22px 0 12px;
+.process-arrow {
+  position: absolute;
+  right: -42px;
+  top: 50%;
+  width: 28px;
+  height: 28px;
+  transform: translateY(-50%);
+  color: oklch(0.6 0.16 143);
+  stroke-width: 2;
 }
-.process-grid p {
-  font-size: 13px;
+.process-text {
+  position: relative;
+  margin-top: 26px;
+  flex: 1;
+}
+/* Divider centred in the gap between steps. */
+.process-step + .process-step .process-text::before {
+  content: "";
+  position: absolute;
+  left: -28px;
+  top: 0;
+  bottom: 0;
+  border-left: 1px solid var(--border);
+}
+.process-text h3 {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  font-size: 22px;
+  font-weight: 600;
+  margin: 0 0 14px;
+}
+.process-badge {
+  display: inline-grid;
+  place-items: center;
+  flex-shrink: 0;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: oklch(0.6 0.16 143);
+  color: #fff;
+  font-size: 15px;
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+}
+.process-text p {
+  margin: 0;
+  font-size: 14px;
   line-height: 1.8;
   color: var(--muted-foreground);
 }
@@ -1294,6 +1348,24 @@ a {
     padding-right: 0;
   }
 }
+@media (max-width: 900px) {
+  .process-steps {
+    grid-template-columns: 1fr;
+    row-gap: 44px;
+  }
+  .process-step + .process-step .process-text::before {
+    display: none;
+  }
+  .process-arrow {
+    display: none;
+  }
+  .process-art img {
+    max-width: 560px;
+  }
+  .process-text {
+    margin-top: 18px;
+  }
+}
 /* Legal pages */
 .legal-section ul {
   list-style: disc;
@@ -1612,14 +1684,6 @@ a {
   }
   .service-number {
     margin-top: 10px;
-  }
-  .process-grid {
-    grid-template-columns: 1fr;
-    gap: 18px;
-    margin-top: 30px;
-  }
-  .process-grid h3 {
-    margin-top: 16px;
   }
   .about-band {
     grid-template-columns: 1fr;
