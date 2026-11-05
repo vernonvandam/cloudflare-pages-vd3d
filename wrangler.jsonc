@@ -1,5 +1,0 @@
-{
-  // Read by Nitro at build time and merged into .output/server/wrangler.json.
-  "name": "vd3d-website",
-  "compatibility_flags": ["nodejs_compat"]
-}
