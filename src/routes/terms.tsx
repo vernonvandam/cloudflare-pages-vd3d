@@ -55,7 +55,7 @@ const sections: LegalSection[] = [
         </li>
         <li>
           <strong>Custom and one-off jobs</strong> need a <strong>50% deposit</strong> before we
-          start. The remaining 50% is due on delivery or collection.
+          start. The remaining 50% is due before we dispatch your order, or when you collect it.
         </li>
         <li>Prices are in Australian dollars.</li>
       </ul>
