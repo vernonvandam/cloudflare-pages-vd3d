@@ -29,7 +29,8 @@ export const faqs: Faq[] = [
     question: "What materials do you print with?",
     answer: [
       "Our standard material is PLA+. It’s strong, accurate and comes in a wide range of colours, which makes it right for most prototypes, models, signs and indoor parts.",
-      "For tougher jobs we can recommend other materials, such as PETG for parts that need more toughness and heat resistance, or flexible TPU for things like keyrings and grips. Tell us where the part will be used and we’ll suggest the right material.",
+      "We also print in PETG for tougher parts with more heat resistance, ABS for durable functional parts, ASA for anything that lives outdoors in the sun, and flexible TPU for grips, bumpers and keyrings.",
+      "Not sure which you need? Tell us where the part will be used and what it has to handle, and we’ll recommend the right one.",
     ],
   },
   {
@@ -63,6 +64,14 @@ export const faqs: Faq[] = [
     answer: [
       "We don’t recommend 3D printed parts for anything that touches food or drink repeatedly, like cups, plates or utensils. The tiny gaps between printed layers can trap bacteria and are hard to clean properly, even when the plastic itself is food-grade.",
       "Items that only hold wrapped food or sit near it, like display stands and packaging inserts, are a different matter. If food is involved in your job, tell us and we’ll talk through the options.",
+    ],
+  },
+  {
+    question: "Do you deliver, or can I pick up?",
+    answer: [
+      "Both. We ship Australia-wide and internationally with Australia Post, and you’ll get tracking once your order is on its way. Postage depends on the size, weight and destination, and we’ll confirm the cost before you pay.",
+      "If you’re local, you’re welcome to collect from our workshop in Bullsbrook, north-east of Perth. We’ll arrange a pickup time with you when your order is ready.",
+      "International orders may attract import duties or taxes in the destination country, which are paid by the recipient.",
     ],
   },
   {

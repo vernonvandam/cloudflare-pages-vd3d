@@ -23,7 +23,7 @@ export const Route = createFileRoute("/faq")({
       {
         name: "description",
         content:
-          "Answers to common 3D printing questions: cost, turnaround, materials, strength, size, multi-colour printing, file types and food safety.",
+          "Answers to common 3D printing questions: cost, turnaround, materials, strength, size, multi-colour printing, file types, food safety and delivery.",
       },
       { property: "og:title", content: "3D printing FAQ | VD3D Perth" },
       {
