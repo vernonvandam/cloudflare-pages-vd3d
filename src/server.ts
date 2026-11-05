@@ -51,7 +51,7 @@ export default {
     setServerEnv(env);
     const url = new URL(request.url);
     const target = request.method === "GET" || request.method === "HEAD" ? redirectFor(url) : null;
-    if (target) return Response.redirect(target, 301);
+    if (target) return Response.redirect(target.location, target.status);
     try {
       const handler = await getServerEntry();
       const response = await normalizeCatastrophicSsrResponse(

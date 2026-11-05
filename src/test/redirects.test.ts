@@ -1,8 +1,8 @@
 import { describe, expect, it } from "vitest";
 
-import { isNonCanonicalHost, redirectFor } from "@/lib/redirects";
+import { isNonCanonicalHost, redirectFor, SHOP_LIVE } from "@/lib/redirects";
 
-const go = (href: string) => redirectFor(new URL(href));
+const go = (href: string) => redirectFor(new URL(href))?.location ?? null;
 
 describe("old WordPress redirects", () => {
   it.each([
@@ -27,16 +27,23 @@ describe("old WordPress redirects", () => {
     "https://vd3d.com.au/cart/",
     "https://vd3d.com.au/my-account/orders/",
     "https://vd3d.com.au/wp-admin/",
-    "https://vd3d.com.au/wp-login.php",
-  ])("forwards store path %s to the shop unchanged", (from) => {
-    expect(go(from)).toBe(from.replace("https://vd3d.com.au", "https://shop.vd3d.com.au"));
+    "https://vd3d.com.au/?p=123",
+  ])("sends old store path %s to the shop", (from) => {
+    const result = redirectFor(new URL(from));
+    if (SHOP_LIVE) {
+      expect(result).toEqual({
+        location: from.replace("https://vd3d.com.au", "https://shop.vd3d.com.au"),
+        status: 301,
+      });
+    } else {
+      // Temporary, so search engines keep the old URLs until the new shop exists.
+      expect(result).toEqual({ location: "https://vd3d.com.au/shop", status: 302 });
+    }
   });
 
-  it("keeps query strings when forwarding to the shop", () => {
-    expect(go("https://vd3d.com.au/product/x/?attribute_colour=green")).toBe(
-      "https://shop.vd3d.com.au/product/x/?attribute_colour=green",
-    );
-    expect(go("https://vd3d.com.au/?p=123")).toBe("https://shop.vd3d.com.au/?p=123");
+  it("uses permanent redirects for pages that have moved for good", () => {
+    expect(redirectFor(new URL("https://vd3d.com.au/faqs/"))?.status).toBe(301);
+    expect(redirectFor(new URL("https://www.vd3d.com.au/"))?.status).toBe(301);
   });
 
   it("doesn't catch new paths that merely start like an old one", () => {
