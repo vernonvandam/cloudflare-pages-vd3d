@@ -214,7 +214,7 @@ button,a { -webkit-tap-highlight-color: transparent; }
 .hero-foot { position:absolute; bottom:26px; left:48px; right:48px; display:flex; align-items:center; justify-content:space-between; font-size:9px; letter-spacing:1.5px; color:var(--industrial-muted); }
 .hero-foot a { display:flex; align-items:center; gap:10px; }
 .benefits { border-bottom:1px solid var(--border); }
-.benefit-grid { display:grid; grid-template-columns:repeat(3,1fr); padding-block:32px; }
+.benefit-grid { display:grid; grid-template-columns:repeat(4,1fr); padding-block:32px; }
 .benefit { display:flex; gap:15px; align-items:center; padding-inline:28px; border-right:1px solid var(--border); }
 .benefit:first-child { padding-left:0; }.benefit:last-child { border:0; }
 .benefit > svg { width:25px; height:25px; stroke-width:1.4; flex-shrink:0; }
@@ -246,6 +246,7 @@ button,a { -webkit-tap-highlight-color: transparent; }
 .cta-inner { display:flex; align-items:center; justify-content:space-between; gap:32px; }
 .cta-band h2 { font-size:44px; line-height:1.15; margin:0 0 12px; }.cta-band h2 span { color:var(--primary); }
 .cta-band p { color:var(--industrial-muted); font-size:13px; }
+.cta-band p a { color:var(--primary); text-decoration:underline; text-underline-offset:3px; }
 .footer { background:var(--industrial-deep); color:var(--industrial-text); padding:45px 0 24px; }
 .footer-main { display:flex; justify-content:space-between; align-items:center; gap:30px; }
 .footer-links { display:flex; gap:24px; font-size:12px; color:var(--industrial-muted); }
@@ -262,7 +263,7 @@ button,a { -webkit-tap-highlight-color: transparent; }
 @media(max-width:900px) {
  .site-width { width:calc(100% - 48px); }.nav-inner { gap:30px; }.header-location { display:none; }
  .hero h1 { font-size:64px; }.hero { height:620px; }.hero-foot { left:24px; right:24px; }
- .benefit { padding-inline:16px; gap:10px; }.benefit p { font-size:10px; }.section-heading > p { max-width:260px; }
+ .benefit-grid { grid-template-columns:repeat(2,1fr); row-gap:24px; }.benefit { padding-inline:16px; gap:10px; }.benefit:nth-child(2) { border:0; }.benefit:nth-child(3) { padding-left:0; }.benefit p { font-size:10px; }.section-heading > p { max-width:260px; }
  .section h2 { font-size:34px; }.service-grid { gap:16px; }.service-title h3 { font-size:17px; }.about-band { gap:40px; }
  .service-detail-grid { gap:30px; }.service-detail h1 { font-size:42px; }
 }

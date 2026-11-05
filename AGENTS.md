@@ -11,4 +11,5 @@
 
 - Keep reusable site navigation, brand and footer in the shared site-shell module so all public pages stay consistent.
 - Keep service content in the browser-safe services module and render service detail pages through the parameterised TanStack route so service links and metadata share one source.
-- Route consultation calls to action to VD3D's existing contact page until a replacement enquiry workflow is explicitly requested, preserving a working contact path without pretending to submit enquiries.
+- Route quote calls to action through `consultationUrl` in the services module. It is an interim mailto to hello@vd3d.com.au until the on-site quote form exists; never point CTAs back to the old WordPress contact page.
+- Only claim capabilities VD3D has: FDM single and multi-colour printing on seven printers, design and prototyping, and laser engraving with an xTool F1. No 3D scanning, laser cutting or fake reviews.
