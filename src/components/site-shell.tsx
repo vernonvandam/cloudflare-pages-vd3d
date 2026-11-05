@@ -3,8 +3,8 @@ import { Link } from '@tanstack/react-router'
 import { ArrowUpRight, Box, ChevronDown, Crosshair, Layers3, MapPin, Menu, Route as RouteIcon, X } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { consultationUrl, services } from '@/lib/services'
-import logoMark from '@/assets/vd3d-mark-white.svg'
-import logoFull from '@/assets/vd3d-horizontal-white.svg'
+import logoMark from '@/assets/vd3d-mark-green.svg'
+import logoFull from '@/assets/vd3d-horizontal-green.svg'
 
 export function Brand() {
   return <Link to="/" aria-label="VD3D home" className="brand"><img src={logoMark} alt="VD3D" className="brand-logo" width={136} height={100} /></Link>
