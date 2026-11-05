@@ -1042,20 +1042,51 @@ a {
 }
 /* Shop */
 .shop-teaser {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 60px;
-  align-items: center;
+  position: relative;
+  overflow: hidden;
+  background: #f5f7f6;
   border-top: 1px solid var(--border);
 }
+.shop-teaser-inner {
+  display: flex;
+  align-items: center;
+  min-height: 460px;
+  padding-block: 72px;
+}
+.shop-teaser-content {
+  position: relative;
+  z-index: 1;
+  width: 50%;
+  max-width: 560px;
+}
+.shop-teaser .eyebrow {
+  color: var(--muted-foreground);
+  margin-bottom: 15px;
+}
 .shop-teaser h2 {
-  margin: 0 0 12px;
+  font-size: 44px;
+  line-height: 1.12;
+  margin: 0 0 16px;
 }
 .shop-teaser p {
-  font-size: 14px;
-  line-height: 1.8;
+  font-size: 15px;
+  line-height: 1.7;
   color: var(--muted-foreground);
-  margin: 0;
+  margin: 0 0 10px;
+}
+.shop-teaser .inline-link {
+  margin-bottom: 30px;
+}
+/* Photo pinned to the right edge, cut on the same diagonal as the design. */
+.shop-teaser-image {
+  position: absolute;
+  top: 0;
+  right: 0;
+  height: 100%;
+  width: 48%;
+  object-fit: cover;
+  object-position: 60% center;
+  clip-path: polygon(22% 0, 100% 0, 100% 100%, 0 100%);
 }
 .signup-form {
   display: flex;
@@ -1204,9 +1235,28 @@ a {
   .shop-grid {
     grid-template-columns: 1fr;
   }
+  .shop-teaser-inner {
+    min-height: 0;
+    padding-block: 56px;
+  }
+  .shop-teaser-content {
+    width: 100%;
+  }
+  .shop-teaser h2 {
+    font-size: 34px;
+  }
+  /* Stack the photo above the text, keeping a diagonal along its bottom edge. */
+  .shop-teaser-image {
+    position: static;
+    display: block;
+    width: 100%;
+    height: auto;
+    aspect-ratio: 16 / 9;
+    clip-path: polygon(0 0, 100% 0, 100% 100%, 0 88%);
+  }
   .shop-teaser {
-    grid-template-columns: 1fr;
-    gap: 28px;
+    display: flex;
+    flex-direction: column-reverse;
   }
   .shop-hero h1 {
     font-size: 38px;
