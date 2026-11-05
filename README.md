@@ -50,4 +50,5 @@ one puts that older version live.
 | `src/lib/proof.ts`              | Etsy figures and reviews, copied word for word                           |
 | `src/lib/faqs.ts`               | FAQ questions and answers                                                |
 | `src/components/site-shell.tsx` | Header, navigation, footer                                               |
-| `src/styles.css`                | Brand colours and all page styles                                        |
+| `src/styles.css`                | Brand colours, type scale and all page styles                            |
+| `brand.md`                      | Brand guide: logo, colours, type, voice, claims, imagery                 |
