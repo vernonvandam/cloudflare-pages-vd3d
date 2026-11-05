@@ -51,7 +51,7 @@ function formatBytes(bytes: number) {
 
 function QuotePage() {
   const { service } = Route.useSearch();
-  const [startedAt] = useState(() => Date.now());
+  const [startedAt] = useState(() => performance.now());
   const [files, setFiles] = useState<File[]>([]);
   const [errors, setErrors] = useState<QuoteErrors>({});
   const [status, setStatus] = useState<Status>("idle");
@@ -82,7 +82,7 @@ function QuotePage() {
     const form = new FormData(event.currentTarget);
     form.delete("files");
     for (const file of files) form.append("files", file);
-    form.set("started_at", String(startedAt));
+    form.set("fill_ms", String(Math.round(performance.now() - startedAt)));
 
     const found = validateQuote(readQuoteFields(form), files);
     setErrors(found);

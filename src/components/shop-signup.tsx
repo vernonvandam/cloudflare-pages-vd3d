@@ -8,7 +8,7 @@ type Status = "idle" | "sending" | "done" | "error";
 
 /** Email signup for the shop launch. Posts to /api/subscribe. */
 export function ShopSignup({ id = "shop-signup" }: { id?: string }) {
-  const [startedAt] = useState(() => Date.now());
+  const [startedAt] = useState(() => performance.now());
   const [status, setStatus] = useState<Status>("idle");
   const [message, setMessage] = useState("");
   const turnstile = useRef<TurnstileHandle>(null);
@@ -22,7 +22,7 @@ export function ShopSignup({ id = "shop-signup" }: { id?: string }) {
       setMessage("Please enter a valid email address.");
       return;
     }
-    form.set("started_at", String(startedAt));
+    form.set("fill_ms", String(Math.round(performance.now() - startedAt)));
     setStatus("sending");
     try {
       const response = await fetch("/api/subscribe", { method: "POST", body: form });

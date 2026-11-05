@@ -17,13 +17,17 @@ export function isSameOrigin(request: Request) {
   }
 }
 
-/** True when the hidden honeypot is filled or the form was submitted implausibly fast. */
+/**
+ * True when the hidden honeypot is filled or the form was submitted implausibly fast.
+ * The browser sends how long the form was open (fill_ms, from its monotonic clock), so a
+ * visitor whose computer clock is wrong is never mistaken for a bot.
+ */
 export function looksLikeBot(form: FormData, minFillMs: number) {
   const honeypot = form.get("company_website");
-  const startedAt = Number(form.get("started_at"));
+  const fillMs = Number(form.get("fill_ms"));
   return (
     (typeof honeypot === "string" && honeypot.trim() !== "") ||
-    !Number.isFinite(startedAt) ||
-    Date.now() - startedAt < minFillMs
+    !Number.isFinite(fillMs) ||
+    fillMs < minFillMs
   );
 }
