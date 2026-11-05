@@ -1,29 +1,53 @@
-# Welcome to your Lovable project
+# VD3D website
 
-This project was built with [Lovable](https://lovable.dev).
+The website for VD3D, a Perth design, 3D printing and laser engraving workshop.
 
-## Build with Lovable
+Built with TanStack Start (React), Tailwind CSS and TypeScript, and deployed to
+Cloudflare Pages. Every push to `main` deploys automatically.
 
-Open your project in the [Lovable editor](https://lovable.dev) and keep building.
+## Run it locally
 
-- **Ship faster**: describe what you want to build and Lovable handles the code.
-- **Stay in sync**: connect the project to GitHub and every change made in Lovable is committed straight to your repository.
-- **Full ownership**: this code is yours. Push to your repository and your changes sync back into Lovable, ready for your next prompt.
-
-## Development
-
-Prefer working locally? You need Node.js and npm — [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating).
+You need Node.js 22+ and [Bun](https://bun.sh) (or npm).
 
 ```sh
-git clone <this-repository-url>
-cd <repository-name>
-npm i
-npm run dev
+bun install
+bun run dev
 ```
 
-## Built with
+Then open the address it prints. The forms need the secrets below to send email;
+without them they show a friendly "temporarily unavailable" message.
 
-- TanStack Start
-- TypeScript
-- React
-- Tailwind CSS
+## Scripts
+
+| Command         | What it does                     |
+| --------------- | -------------------------------- |
+| `bun run dev`   | Local dev server with hot reload |
+| `bun run build` | Production build                 |
+| `bun run test`  | Unit tests (Vitest)              |
+| `bun run lint`  | ESLint and Prettier checks       |
+
+## Cloudflare Pages settings
+
+Build command `npm run build`, output directory `dist`, production branch `main`.
+
+Secrets (Pages project → Settings → Variables and Secrets):
+
+| Name                   | Used for                                     |
+| ---------------------- | -------------------------------------------- |
+| `BREVO_API_KEY`        | Sending quote emails and adding shop signups |
+| `BREVO_SHOP_LIST_ID`   | The Brevo list that shop signups join        |
+| `TURNSTILE_SECRET_KEY` | Verifying the spam check on both forms       |
+
+After changing a secret, redeploy the **newest** deployment. Retrying an older
+one puts that older version live.
+
+## Where things live
+
+| Path                            | Contents                                                                 |
+| ------------------------------- | ------------------------------------------------------------------------ |
+| `src/routes/`                   | Pages (`index`, `quote`, `faq`, `shop`, legal pages) and `api/` handlers |
+| `src/lib/services.ts`           | Services, contact email and quote link                                   |
+| `src/lib/proof.ts`              | Etsy figures and reviews, copied word for word                           |
+| `src/lib/faqs.ts`               | FAQ questions and answers                                                |
+| `src/components/site-shell.tsx` | Header, navigation, footer                                               |
+| `src/styles.css`                | Brand colours and all page styles                                        |
