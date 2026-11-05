@@ -3,8 +3,7 @@ import laser from '@/assets/laser.jpg'
 import precision from '@/assets/design.jpg'
 
 export const contactEmail = 'hello@vd3d.com.au'
-// Interim: opens an email to hello@ until the on-site quote form is built.
-export const consultationUrl = `mailto:${contactEmail}?subject=${encodeURIComponent('Quote request')}`
+export const consultationUrl = '/quote'
 export const services = [
   { slug: '3d-printing', title: '3D Printing & Short Runs', eyebrow: 'One-offs to a few hundred', image: printing, alt: 'Illustrative 3D printer producing a green lattice prototype', description: 'Prototypes, custom parts and short production runs, printed in multi-colour on a seven-printer farm.', detail: 'Got a print-ready file? Send it through and we’ll check it, suggest any changes that will make it stronger or cheaper to print, and get it on the printers. Need more than one? Our seven-printer setup handles short production runs, from a handful of parts to a few hundred.', features: ['FDM printing in single or multi-colour', 'Functional parts, brackets, enclosures and fixtures', 'Short production runs up to a few hundred parts', 'Print-ready files typically turned around in 1–2 days'] },
   { slug: 'design-and-prototyping', title: 'Design & Prototyping', eyebrow: 'From sketch to working part', image: precision, alt: 'Illustrative precision-designed lattice and mechanical components', description: 'Got an idea, a sketch or a broken part? We design it, prototype it and refine it until it works.', detail: 'Most of our work starts without a file. Tell us the problem you need solved, send a sketch, photos or measurements, and we’ll turn it into a print-ready design. We prototype, you test, we refine, so mistakes get caught before they cost you a production run.', features: ['3D modelling from sketches, photos or measurements', 'Design for printability, strength and cost', 'Rapid prototype and refine cycles', 'Design to first print typically in 3–5 days'] },
