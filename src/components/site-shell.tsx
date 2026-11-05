@@ -4,6 +4,7 @@ import { ArrowUpRight, Box, ChevronDown, Crosshair, Layers3, MapPin, Menu, Route
 import { Button } from '@/components/ui/button'
 import { consultationUrl, services } from '@/lib/services'
 import logoMark from '@/assets/vd3d-mark-white.svg'
+import logoFull from '@/assets/vd3d-horizontal-white.svg'
 
 export function Brand() {
   return <Link to="/" aria-label="VD3D home" className="brand"><img src={logoMark} alt="VD3D" className="brand-logo" width={136} height={100} /></Link>
@@ -23,5 +24,5 @@ export function ConsultationBand() {
   return <section className="cta-band"><div className="site-width cta-inner"><div><h2>Your next idea.<br/><span>Let’s make it real.</span></h2><p>Start with a conversation. No obligations, just possibilities.</p></div><Button asChild variant="industrial" size="feature"><a href={consultationUrl}>Book a consultation <ArrowUpRight/></a></Button></div></section>
 }
 export function SiteFooter() {
-  return <footer className="footer"><div className="site-width"><div className="footer-main"><Brand/><div className="footer-links"><a href="/#services">Our services</a><a href="/#about">About us</a><a href={consultationUrl}>Contact</a><a href="https://www.instagram.com/vandam3d/" target="_blank" rel="noreferrer">Instagram <span aria-hidden="true">↗</span></a></div></div><div className="footer-bottom"><span>© 2026 VD3D. All rights reserved.</span><span>Designed, printed and created in Perth, Western Australia.</span></div></div></footer>
+  return <footer className="footer"><div className="site-width"><div className="footer-main"><Link to="/" aria-label="VD3D home" className="brand"><img src={logoFull} alt="VD3D: 3D printing, prototyping and laser engraving" className="footer-logo" width={300} height={70} /></Link><div className="footer-links"><a href="/#services">Our services</a><a href="/#about">About us</a><a href={consultationUrl}>Contact</a><a href="https://www.instagram.com/vandam3d/" target="_blank" rel="noreferrer">Instagram <span aria-hidden="true">↗</span></a></div></div><div className="footer-bottom"><span>© 2026 VD3D. All rights reserved.</span><span>Designed, printed and created in Perth, Western Australia.</span></div></div></footer>
 }
