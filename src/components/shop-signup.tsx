@@ -1,4 +1,5 @@
 import { useRef, useState, type FormEvent } from "react";
+import { Link } from "@tanstack/react-router";
 import { ArrowUpRight, CheckCircle2, Loader2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Turnstile, type TurnstileHandle } from "@/components/turnstile";
@@ -89,8 +90,8 @@ export function ShopSignup({ id = "shop-signup" }: { id?: string }) {
         </p>
       )}
       <p className="signup-note" id={`${id}-note`}>
-        One email when the shop opens, plus occasional new products. Unsubscribe any time. Can’t
-        wait?{" "}
+        One email when the shop opens, plus occasional new products. Unsubscribe any time (
+        <Link to="/privacy">privacy</Link>). Can’t wait?{" "}
         <a href={etsyShopUrl} target="_blank" rel="noreferrer">
           Shop on Etsy now
         </a>

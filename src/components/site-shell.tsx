@@ -154,6 +154,11 @@ export function SiteFooter() {
         </div>
         <div className="footer-bottom">
           <span>© 2026 VD3D. All rights reserved.</span>
+          <nav className="legal-links" aria-label="Legal">
+            <Link to="/privacy">Privacy</Link>
+            <Link to="/terms">Terms</Link>
+            <Link to="/shipping-returns">Shipping &amp; returns</Link>
+          </nav>
           <span>Designed, printed and created in Perth, Western Australia.</span>
         </div>
       </div>

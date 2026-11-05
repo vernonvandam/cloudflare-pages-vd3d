@@ -8,10 +8,16 @@ import { routeTree } from "@/routeTree.gen";
 describe("App routing", () => {
   const router = createRouter({ routeTree });
 
-  it.each(["/", "/quote", "/faq", "/shop", "/services/3d-printing"])(
-    "matches a page for %s instead of falling back to not found",
-    (path) => {
-      expect(router.matchRoutes(path).at(-1)?.routeId).not.toBe(rootRouteId);
-    },
-  );
+  it.each([
+    "/",
+    "/quote",
+    "/faq",
+    "/shop",
+    "/services/3d-printing",
+    "/privacy",
+    "/terms",
+    "/shipping-returns",
+  ])("matches a page for %s instead of falling back to not found", (path) => {
+    expect(router.matchRoutes(path).at(-1)?.routeId).not.toBe(rootRouteId);
+  });
 });

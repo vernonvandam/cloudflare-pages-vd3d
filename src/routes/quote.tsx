@@ -382,7 +382,10 @@ function QuotePage() {
                     </>
                   )}
                 </Button>
-                <p>We only use your details to reply to this request.</p>
+                <p>
+                  We only use your details to reply to this request. See our{" "}
+                  <Link to="/privacy">privacy policy</Link>.
+                </p>
               </div>
             </form>
           )}
