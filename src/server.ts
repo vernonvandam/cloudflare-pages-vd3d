@@ -2,6 +2,7 @@ import "./lib/error-capture";
 
 import { consumeLastCapturedError } from "./lib/error-capture";
 import { renderErrorPage } from "./lib/error-page";
+import { isNonCanonicalHost, redirectFor } from "./lib/redirects";
 import { setServerEnv } from "./lib/server-env";
 
 type ServerEntry = {
@@ -48,10 +49,18 @@ function isH3SwallowedErrorBody(body: string): boolean {
 export default {
   async fetch(request: Request, env: unknown, ctx: unknown) {
     setServerEnv(env);
+    const url = new URL(request.url);
+    const target = request.method === "GET" || request.method === "HEAD" ? redirectFor(url) : null;
+    if (target) return Response.redirect(target, 301);
     try {
       const handler = await getServerEntry();
-      const response = await handler.fetch(request, env, ctx);
-      return await normalizeCatastrophicSsrResponse(response);
+      const response = await normalizeCatastrophicSsrResponse(
+        await handler.fetch(request, env, ctx),
+      );
+      if (!isNonCanonicalHost(url.hostname)) return response;
+      const headers = new Headers(response.headers);
+      headers.set("x-robots-tag", "noindex");
+      return new Response(response.body, { status: response.status, headers });
     } catch (error) {
       console.error(error);
       return new Response(renderErrorPage(), {
