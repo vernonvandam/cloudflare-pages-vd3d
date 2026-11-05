@@ -154,8 +154,9 @@ function QuotePage() {
               <CheckCircle2 />
               <h2>Thanks, your request is in.</h2>
               <p>
-                We’ll review it and reply to the email address you gave us, with questions or a
-                quote. If anything changes in the meantime, reply to that email or write to{" "}
+                We’ve emailed you a confirmation. If it isn’t in your inbox in a few minutes, check
+                your spam folder. We’ll review your request and reply with questions or a quote. To
+                add files or details, reply to the confirmation or write to{" "}
                 <a href={`mailto:${contactEmail}`}>{contactEmail}</a>.
               </p>
               <Button asChild variant="industrial" size="feature">

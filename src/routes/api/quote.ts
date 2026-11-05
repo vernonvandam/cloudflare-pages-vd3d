@@ -1,6 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { zipSync } from "fflate";
 import { MIN_FILL_MS, readQuoteFields, validateQuote, type QuoteFields } from "@/lib/quote";
+import { buildConfirmationEmail } from "@/lib/quote-confirmation";
 import { getServerEnv } from "@/lib/server-env";
 
 const DEFAULT_BREVO_URL = "https://api.brevo.com/v3/smtp/email";
@@ -37,6 +38,29 @@ function isSameOrigin(request: Request) {
   } catch {
     return false;
   }
+}
+
+async function sendBrevo(apiKey: string, payload: Record<string, unknown>, label: string) {
+  try {
+    const response = await fetch(getServerEnv("BREVO_API_URL") ?? DEFAULT_BREVO_URL, {
+      method: "POST",
+      headers: {
+        "api-key": apiKey,
+        "content-type": "application/json",
+        accept: "application/json",
+      },
+      body: JSON.stringify(payload),
+    });
+    if (response.ok) return true;
+    console.error(
+      `quote: Brevo rejected the ${label}`,
+      response.status,
+      (await response.text()).slice(0, 500),
+    );
+  } catch (error) {
+    console.error(`quote: Brevo request for the ${label} failed`, error);
+  }
+  return false;
 }
 
 function buildEmailHtml(fields: QuoteFields, fileNames: string[]) {
@@ -138,28 +162,24 @@ export const Route = createFileRoute("/api/quote")({
           tags: ["quote-request"],
         };
 
-        try {
-          const response = await fetch(getServerEnv("BREVO_API_URL") ?? DEFAULT_BREVO_URL, {
-            method: "POST",
-            headers: {
-              "api-key": apiKey,
-              "content-type": "application/json",
-              accept: "application/json",
-            },
-            body: JSON.stringify(payload),
-          });
-          if (!response.ok) {
-            console.error(
-              "quote: Brevo rejected the email",
-              response.status,
-              (await response.text()).slice(0, 500),
-            );
-            return json(502, { ok: false, message: "We could not send your request just now." });
-          }
-        } catch (error) {
-          console.error("quote: Brevo request failed", error);
+        if (!(await sendBrevo(apiKey, payload, "quote email")))
           return json(502, { ok: false, message: "We could not send your request just now." });
-        }
+
+        // The request is safely with us; a failed confirmation shouldn't make the customer resend.
+        const confirmation = buildConfirmationEmail(fields, files.length);
+        await sendBrevo(
+          apiKey,
+          {
+            sender: { name: "VD3D", email: SENDER.email },
+            to: [{ email: fields.email }],
+            replyTo: { email: SENDER.email, name: "VD3D" },
+            subject: confirmation.subject,
+            htmlContent: confirmation.html,
+            textContent: confirmation.text,
+            tags: ["quote-confirmation"],
+          },
+          "confirmation email",
+        );
 
         return json(200, { ok: true });
       },
