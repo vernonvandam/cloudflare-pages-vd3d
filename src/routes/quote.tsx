@@ -14,9 +14,8 @@ import {
 } from "@/lib/quote";
 
 export const Route = createFileRoute("/quote")({
-  validateSearch: (search: Record<string, unknown>) => ({
-    service: typeof search["service"] === "string" ? search["service"] : undefined,
-  }),
+  validateSearch: (search: Record<string, unknown>): { service?: string } =>
+    typeof search["service"] === "string" ? { service: search["service"] } : {},
   head: () => ({
     meta: [
       { title: "Get a quote | VD3D Perth" },

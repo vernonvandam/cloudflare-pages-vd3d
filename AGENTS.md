@@ -15,3 +15,4 @@
 - Only claim capabilities VD3D has: FDM single and multi-colour printing on seven printers, design and prototyping, and laser engraving with an xTool F1. No 3D scanning, laser cutting or fake reviews.
 - Proof figures and reviews live in src/lib/proof.ts and are copied word for word from the Etsy shop. Update the numbers, never invent or reword reviews.
 - The shop is a placeholder: /shop and the homepage teaser collect emails via /api/subscribe into a Brevo list (BREVO_SHOP_LIST_ID secret).
+- FAQ answers live in src/lib/faqs.ts and are commitments to customers. Never claim 3D prints are food safe, quote prices, or promise anything VD3D hasn't confirmed.
