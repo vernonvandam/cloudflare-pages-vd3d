@@ -1,6 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { isSameOrigin, json, looksLikeBot } from "@/lib/http";
 import { getServerEnv } from "@/lib/server-env";
+import { TURNSTILE_FAILED_MESSAGE, verifyTurnstile } from "@/lib/turnstile-verify";
 
 const DEFAULT_CONTACTS_URL = "https://api.brevo.com/v3/contacts";
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -26,6 +27,9 @@ export const Route = createFileRoute("/api/subscribe")({
           .toLowerCase();
         if (!EMAIL_RE.test(email) || email.length > 254)
           return json(422, { ok: false, message: "Please enter a valid email address." });
+
+        if ((await verifyTurnstile(form, request)) === "failed")
+          return json(403, { ok: false, message: TURNSTILE_FAILED_MESSAGE });
 
         const apiKey = getServerEnv("BREVO_API_KEY");
         const listId = Number(getServerEnv("BREVO_SHOP_LIST_ID"));

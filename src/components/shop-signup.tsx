@@ -1,6 +1,7 @@
-import { useState, type FormEvent } from "react";
+import { useRef, useState, type FormEvent } from "react";
 import { ArrowUpRight, CheckCircle2, Loader2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { Turnstile, type TurnstileHandle } from "@/components/turnstile";
 import { etsyShopUrl } from "@/lib/proof";
 
 type Status = "idle" | "sending" | "done" | "error";
@@ -10,6 +11,7 @@ export function ShopSignup({ id = "shop-signup" }: { id?: string }) {
   const [startedAt] = useState(() => Date.now());
   const [status, setStatus] = useState<Status>("idle");
   const [message, setMessage] = useState("");
+  const turnstile = useRef<TurnstileHandle>(null);
 
   async function onSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
@@ -34,9 +36,11 @@ export function ShopSignup({ id = "shop-signup" }: { id?: string }) {
       }
       setMessage(result.message ?? "Something went wrong. Please try again.");
       setStatus("error");
+      turnstile.current?.reset();
     } catch {
       setMessage("We could not reach our server. Please try again.");
       setStatus("error");
+      turnstile.current?.reset();
     }
   }
 
@@ -74,6 +78,7 @@ export function ShopSignup({ id = "shop-signup" }: { id?: string }) {
           )}
         </Button>
       </div>
+      <Turnstile ref={turnstile} />
       <div className="hp-field" aria-hidden="true">
         <label htmlFor={`${id}-website`}>Website</label>
         <input id={`${id}-website`} name="company_website" tabIndex={-1} autoComplete="off" />

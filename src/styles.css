@@ -347,6 +347,9 @@ button,a { -webkit-tap-highlight-color: transparent; }
 .sr-only { position:absolute; width:1px; height:1px; padding:0; margin:-1px; overflow:hidden; clip:rect(0,0,0,0); white-space:nowrap; border:0; }
 @media(max-width:900px) { .proof-stats { grid-template-columns:repeat(2,1fr); } .proof-stats > div:nth-child(2) { border:0; } .proof-stats > div:nth-child(3) { padding-left:0; } .proof-stats > div:nth-child(-n+2) { border-bottom:1px solid var(--border); } .review-grid, .shop-grid { grid-template-columns:1fr; } .shop-teaser { grid-template-columns:1fr; gap:28px; } .shop-hero h1 { font-size:38px; } }
 @media(max-width:600px) { .proof-stats dd { font-size:28px; } .proof-stats > div { padding:18px 14px; } .signup-row { flex-direction:column; } .shop-etsy { flex-direction:column; align-items:flex-start; } .shop-hero h1 { font-size:32px; } }
+.turnstile-slot:empty { display:none; }
+.turnstile-slot { margin-top:16px; }
+.signup-form .turnstile-slot { margin-top:0; }
 /* FAQ */
 .faq-layout { display:grid; grid-template-columns:minmax(0,4fr) minmax(0,7fr); gap:64px; align-items:start; padding-top:56px; }
 .faq-intro { position:sticky; top:150px; }

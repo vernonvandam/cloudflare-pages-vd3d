@@ -4,6 +4,7 @@ import { MIN_FILL_MS, readQuoteFields, validateQuote, type QuoteFields } from "@
 import { buildConfirmationEmail } from "@/lib/quote-confirmation";
 import { isSameOrigin, json, looksLikeBot } from "@/lib/http";
 import { getServerEnv } from "@/lib/server-env";
+import { TURNSTILE_FAILED_MESSAGE, verifyTurnstile } from "@/lib/turnstile-verify";
 
 const DEFAULT_BREVO_URL = "https://api.brevo.com/v3/smtp/email";
 const SENDER = { name: "VD3D Website", email: "hello@vd3d.com.au" };
@@ -105,6 +106,9 @@ export const Route = createFileRoute("/api/quote")({
           );
         const errors = validateQuote(fields, files);
         if (Object.keys(errors).length) return json(422, { ok: false, errors });
+
+        if ((await verifyTurnstile(form, request)) === "failed")
+          return json(403, { ok: false, message: TURNSTILE_FAILED_MESSAGE });
 
         const apiKey = getServerEnv("BREVO_API_KEY");
         if (!apiKey) {

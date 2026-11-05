@@ -16,3 +16,4 @@
 - Proof figures and reviews live in src/lib/proof.ts and are copied word for word from the Etsy shop. Update the numbers, never invent or reword reviews.
 - The shop is a placeholder: /shop and the homepage teaser collect emails via /api/subscribe into a Brevo list (BREVO_SHOP_LIST_ID secret).
 - FAQ answers live in src/lib/faqs.ts and are commitments to customers. Never claim 3D prints are food safe, quote prices, or promise anything VD3D hasn't confirmed.
+- Both forms use Cloudflare Turnstile (widget 'VD3D website forms'). The site key is in src/components/turnstile.tsx; the server checks tokens when the TURNSTILE_SECRET_KEY secret is set.

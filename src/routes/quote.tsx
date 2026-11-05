@@ -3,6 +3,7 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { ArrowLeft, ArrowUpRight, CheckCircle2, Loader2, Paperclip, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { SiteFooter, SiteHeader } from "@/components/site-shell";
+import { Turnstile, type TurnstileHandle } from "@/components/turnstile";
 import { contactEmail } from "@/lib/services";
 import {
   ACCEPT_ATTR,
@@ -56,6 +57,7 @@ function QuotePage() {
   const [status, setStatus] = useState<Status>("idle");
   const [serverMessage, setServerMessage] = useState("");
   const fileInput = useRef<HTMLInputElement>(null);
+  const turnstile = useRef<TurnstileHandle>(null);
 
   function updateFileError(next: File[]) {
     const message = validateQuote(readQuoteFields(new FormData()), next).files;
@@ -107,9 +109,11 @@ function QuotePage() {
       if (result.errors) setErrors(result.errors);
       setServerMessage(result.message ?? "Something went wrong sending your request.");
       setStatus("error");
+      turnstile.current?.reset();
     } catch {
       setServerMessage("We could not reach our server. Check your connection and try again.");
       setStatus("error");
+      turnstile.current?.reset();
     }
   }
 
@@ -354,6 +358,7 @@ function QuotePage() {
                   />
                 </div>
               </div>
+              <Turnstile ref={turnstile} />
               {status === "error" && (
                 <div className="form-alert" role="alert">
                   {serverMessage} You can also email your request to{" "}
