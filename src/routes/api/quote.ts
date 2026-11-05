@@ -2,16 +2,11 @@ import { createFileRoute } from "@tanstack/react-router";
 import { zipSync } from "fflate";
 import { MIN_FILL_MS, readQuoteFields, validateQuote, type QuoteFields } from "@/lib/quote";
 import { buildConfirmationEmail } from "@/lib/quote-confirmation";
+import { isSameOrigin, json, looksLikeBot } from "@/lib/http";
 import { getServerEnv } from "@/lib/server-env";
 
 const DEFAULT_BREVO_URL = "https://api.brevo.com/v3/smtp/email";
 const SENDER = { name: "VD3D Website", email: "hello@vd3d.com.au" };
-
-const json = (status: number, body: Record<string, unknown>) =>
-  new Response(JSON.stringify(body), {
-    status,
-    headers: { "content-type": "application/json", "cache-control": "no-store" },
-  });
 
 const escapeHtml = (value: string) =>
   value.replace(
@@ -28,16 +23,6 @@ function toBase64(bytes: Uint8Array) {
   for (let i = 0; i < bytes.length; i += chunk)
     binary += String.fromCharCode(...bytes.subarray(i, i + chunk));
   return btoa(binary);
-}
-
-function isSameOrigin(request: Request) {
-  const origin = request.headers.get("origin");
-  if (!origin) return true; // some privacy tools strip Origin on same-site posts
-  try {
-    return new URL(origin).host === new URL(request.url).host;
-  } catch {
-    return false;
-  }
 }
 
 async function sendBrevo(apiKey: string, payload: Record<string, unknown>, label: string) {
@@ -106,15 +91,7 @@ export const Route = createFileRoute("/api/quote")({
         }
 
         // Spam traps: a hidden field humans never fill, and a minimum time on the page.
-        const honeypot = form.get("company_website");
-        const startedAt = Number(form.get("started_at"));
-        if (
-          (typeof honeypot === "string" && honeypot.trim()) ||
-          !Number.isFinite(startedAt) ||
-          Date.now() - startedAt < MIN_FILL_MS
-        ) {
-          return json(200, { ok: true }); // look successful so bots don't adapt
-        }
+        if (looksLikeBot(form, MIN_FILL_MS)) return json(200, { ok: true }); // look successful so bots don't adapt
 
         const fields = readQuoteFields(form);
         const files = form

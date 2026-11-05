@@ -11,7 +11,9 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as QuoteRouteImport } from './routes/quote'
+import { Route as ShopRouteImport } from './routes/shop'
 import { Route as ApiQuoteRouteImport } from './routes/api/quote'
+import { Route as ApiSubscribeRouteImport } from './routes/api/subscribe'
 import { Route as ServicesServiceRouteImport } from './routes/services.$service'
 
 const IndexRoute = IndexRouteImport.update({
@@ -24,9 +26,19 @@ const QuoteRoute = QuoteRouteImport.update({
   path: '/quote',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ShopRoute = ShopRouteImport.update({
+  id: '/shop',
+  path: '/shop',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ApiQuoteRoute = ApiQuoteRouteImport.update({
   id: '/api/quote',
   path: '/api/quote',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ApiSubscribeRoute = ApiSubscribeRouteImport.update({
+  id: '/api/subscribe',
+  path: '/api/subscribe',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ServicesServiceRoute = ServicesServiceRouteImport.update({
@@ -38,34 +50,61 @@ const ServicesServiceRoute = ServicesServiceRouteImport.update({
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/quote': typeof QuoteRoute
+  '/shop': typeof ShopRoute
   '/api/quote': typeof ApiQuoteRoute
+  '/api/subscribe': typeof ApiSubscribeRoute
   '/services/$service': typeof ServicesServiceRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/quote': typeof QuoteRoute
+  '/shop': typeof ShopRoute
   '/api/quote': typeof ApiQuoteRoute
+  '/api/subscribe': typeof ApiSubscribeRoute
   '/services/$service': typeof ServicesServiceRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/quote': typeof QuoteRoute
+  '/shop': typeof ShopRoute
   '/api/quote': typeof ApiQuoteRoute
+  '/api/subscribe': typeof ApiSubscribeRoute
   '/services/$service': typeof ServicesServiceRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/quote' | '/api/quote' | '/services/$service'
+  fullPaths:
+    | '/'
+    | '/quote'
+    | '/shop'
+    | '/api/quote'
+    | '/api/subscribe'
+    | '/services/$service'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/quote' | '/api/quote' | '/services/$service'
-  id: '__root__' | '/' | '/quote' | '/api/quote' | '/services/$service'
+  to:
+    | '/'
+    | '/quote'
+    | '/shop'
+    | '/api/quote'
+    | '/api/subscribe'
+    | '/services/$service'
+  id:
+    | '__root__'
+    | '/'
+    | '/quote'
+    | '/shop'
+    | '/api/quote'
+    | '/api/subscribe'
+    | '/services/$service'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   QuoteRoute: typeof QuoteRoute
+  ShopRoute: typeof ShopRoute
   ApiQuoteRoute: typeof ApiQuoteRoute
+  ApiSubscribeRoute: typeof ApiSubscribeRoute
   ServicesServiceRoute: typeof ServicesServiceRoute
 }
 
@@ -85,11 +124,25 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof QuoteRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/shop': {
+      id: '/shop'
+      path: '/shop'
+      fullPath: '/shop'
+      preLoaderRoute: typeof ShopRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/api/quote': {
       id: '/api/quote'
       path: '/api/quote'
       fullPath: '/api/quote'
       preLoaderRoute: typeof ApiQuoteRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/subscribe': {
+      id: '/api/subscribe'
+      path: '/api/subscribe'
+      fullPath: '/api/subscribe'
+      preLoaderRoute: typeof ApiSubscribeRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/services/$service': {
@@ -105,7 +158,9 @@ declare module '@tanstack/react-router' {
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   QuoteRoute: QuoteRoute,
+  ShopRoute: ShopRoute,
   ApiQuoteRoute: ApiQuoteRoute,
+  ApiSubscribeRoute: ApiSubscribeRoute,
   ServicesServiceRoute: ServicesServiceRoute,
 }
 export const routeTree = rootRouteImport
