@@ -15,7 +15,7 @@ export const socialProfiles = [
   "https://www.instagram.com/vandam3d/",
   "https://www.facebook.com/vandam3d/",
   "https://www.linkedin.com/company/vandam3d",
-  "https://www.youtube.com/@vanDam3D-zg8ry",
+  "https://www.youtube.com/@vandam3d",
   etsyShopUrl,
 ];
 
