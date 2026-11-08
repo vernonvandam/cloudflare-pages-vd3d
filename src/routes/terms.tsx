@@ -1,9 +1,11 @@
+import { canonicalLink } from "@/lib/seo";
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { LegalPage, type LegalSection } from "@/components/legal-page";
 import { contactEmail } from "@/lib/services";
 
 export const Route = createFileRoute("/terms")({
   head: () => ({
+    links: [canonicalLink("/terms")],
     meta: [
       { title: "Terms of service | VD3D" },
       {

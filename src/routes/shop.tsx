@@ -1,3 +1,4 @@
+import { canonicalLink } from "@/lib/seo";
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { ArrowLeft, ArrowUpRight, Download, Gift, Shirt } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -7,6 +8,7 @@ import { etsyShopUrl, etsyStats } from "@/lib/proof";
 
 export const Route = createFileRoute("/shop")({
   head: () => ({
+    links: [canonicalLink("/shop")],
     meta: [
       { title: "Shop | VD3D Perth" },
       {

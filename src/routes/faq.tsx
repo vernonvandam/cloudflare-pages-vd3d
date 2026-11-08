@@ -1,3 +1,4 @@
+import { canonicalLink } from "@/lib/seo";
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { ArrowLeft, ArrowUpRight, Plus } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -18,6 +19,7 @@ const faqSchema = {
 
 export const Route = createFileRoute("/faq")({
   head: () => ({
+    links: [canonicalLink("/faq")],
     meta: [
       { title: "3D printing FAQ | VD3D Perth" },
       {

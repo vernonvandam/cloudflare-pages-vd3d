@@ -1,3 +1,4 @@
+import { businessSchema, canonicalLink, SITE_URL } from "@/lib/seo";
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { ArrowDown, ArrowRight, ArrowUpRight, Layers3, Palette, PenTool, Zap } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -33,6 +34,8 @@ const processSteps = [
 
 export const Route = createFileRoute("/")({
   head: () => ({
+    links: [canonicalLink("/")],
+    scripts: [{ type: "application/ld+json", children: JSON.stringify(businessSchema) }],
     meta: [
       { title: "VD3D | Design, Prototyping & 3D Printing in Perth" },
       {
@@ -47,6 +50,8 @@ export const Route = createFileRoute("/")({
           "Design help, prototypes and short production runs for Perth startups, small businesses, makers and trades.",
       },
       { property: "og:type", content: "website" },
+      { property: "og:url", content: `${SITE_URL}/` },
+      { property: "og:image", content: `${SITE_URL}${hero}` },
       { name: "twitter:card", content: "summary_large_image" },
     ],
   }),

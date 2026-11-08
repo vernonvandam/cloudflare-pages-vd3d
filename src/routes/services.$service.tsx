@@ -1,3 +1,4 @@
+import { canonicalLink } from "@/lib/seo";
 import { createFileRoute, Link, notFound } from "@tanstack/react-router";
 import { ArrowLeft, ArrowUpRight, Check } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -11,6 +12,7 @@ export const Route = createFileRoute("/services/$service")({
     return service;
   },
   head: ({ loaderData }) => ({
+    links: [canonicalLink(`/services/${loaderData?.slug ?? ""}`)],
     meta: [
       { title: `${loaderData?.title ?? "Services"} | VD3D Perth` },
       {

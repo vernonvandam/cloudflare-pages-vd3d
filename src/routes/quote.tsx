@@ -1,3 +1,4 @@
+import { canonicalLink } from "@/lib/seo";
 import { useRef, useState, type FormEvent } from "react";
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { ArrowLeft, ArrowUpRight, CheckCircle2, Loader2, Paperclip, X } from "lucide-react";
@@ -18,6 +19,7 @@ export const Route = createFileRoute("/quote")({
   validateSearch: (search: Record<string, unknown>): { service?: string } =>
     typeof search["service"] === "string" ? { service: search["service"] } : {},
   head: () => ({
+    links: [canonicalLink("/quote")],
     meta: [
       { title: "Get a quote | VD3D Perth" },
       {
