@@ -24,6 +24,7 @@ export const businessSchema = {
   "@type": "LocalBusiness",
   "@id": `${SITE_URL}/#business`,
   name: "VD3D",
+  alternateName: "vanDam3D",
   url: `${SITE_URL}/`,
   logo: `${SITE_URL}/favicon.svg`,
   email: contactEmail,
