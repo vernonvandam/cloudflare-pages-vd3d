@@ -6,7 +6,9 @@
 
 export const SITE_ORIGIN = "https://vd3d.com.au";
 export const SHOP_ORIGIN = "https://shop.vd3d.com.au";
-export const SHOP_LIVE = false;
+export const SHOP_LIVE = true;
+/** Where "Shop" links point: the live shop, or the coming-soon page before launch. */
+export const SHOP_URL = SHOP_LIVE ? `${SHOP_ORIGIN}/` : "/shop";
 const ETSY_URL = "https://www.etsy.com/shop/vanDam3D";
 
 // Old WordPress pages → new pages (keys without trailing slash).
@@ -61,6 +63,9 @@ export function redirectFor(url: URL): Redirect | null {
 
   const path = url.pathname;
   const bare = path.length > 1 ? path.replace(/\/+$/, "") : path;
+
+  // The old "coming soon" page forwards to the shop once it's open.
+  if (SHOP_LIVE && bare.toLowerCase() === "/shop") return permanent(`${SHOP_ORIGIN}/`);
 
   const page = pageRedirects[bare.toLowerCase()];
   if (page) return permanent(page.startsWith("http") ? page : new URL(page, url.origin).toString());

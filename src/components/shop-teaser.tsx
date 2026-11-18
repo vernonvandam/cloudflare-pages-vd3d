@@ -1,22 +1,28 @@
-import { Link } from "@tanstack/react-router";
 import { ArrowUpRight } from "lucide-react";
-import { ShopSignup } from "@/components/shop-signup";
+import { Button } from "@/components/ui/button";
+import { SHOP_URL } from "@/lib/redirects";
 import shopImage from "@/assets/shop-teaser.webp";
 import shopImageMobile from "@/assets/shop-teaser-mobile.webp";
 
-/** Homepage band announcing the shop, with a photo on the right cut on a diagonal. */
+/** Homepage band for the shop, with a photo on the right cut on a diagonal. */
 export function ShopTeaser() {
   return (
     <section id="shop" className="shop-teaser" aria-labelledby="shop-heading">
       <div className="site-width shop-teaser-inner">
         <div className="shop-teaser-content">
-          <div className="eyebrow">SHOP · COMING SOON</div>
-          <h2 id="shop-heading">Printed products, downloads and merch.</h2>
-          <p>Our online shop is moving here. Get an email the day it opens.</p>
-          <Link to="/shop" className="inline-link">
-            What’s coming <ArrowUpRight size={14} />
-          </Link>
-          <ShopSignup id="home-signup" />
+          <div className="eyebrow">SHOP · NOW OPEN</div>
+          <h2 id="shop-heading">Printed products and downloads.</h2>
+          <p>
+            Gifts, keyrings, signs and desk organisers printed in our Bullsbrook workshop, plus our
+            3D print pricing tool. Shipped Australia-wide or picked up locally.
+          </p>
+          <div>
+            <Button asChild variant="industrial" size="feature">
+              <a href={SHOP_URL}>
+                Visit the shop <ArrowUpRight />
+              </a>
+            </Button>
+          </div>
         </div>
       </div>
       <picture className="shop-teaser-picture">

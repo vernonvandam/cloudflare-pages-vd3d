@@ -17,6 +17,7 @@ import { Button } from "@/components/ui/button";
 import { consultationUrl, contactEmail, services } from "@/lib/services";
 import logoMark from "@/assets/vd3d-mark-green.svg";
 import logoFull from "@/assets/vd3d-horizontal-green.svg";
+import { SHOP_URL } from "@/lib/redirects";
 
 export function Brand() {
   return (
@@ -95,9 +96,9 @@ export function SiteHeader() {
           <Link className="nav-link" to="/faq" onClick={() => setMobileOpen(false)}>
             <HelpCircle /> FAQ
           </Link>
-          <Link className="nav-link" to="/shop" onClick={() => setMobileOpen(false)}>
+          <a className="nav-link" href={SHOP_URL} onClick={() => setMobileOpen(false)}>
             <ShoppingBag /> Shop
-          </Link>
+          </a>
         </div>
       </nav>
     </header>
@@ -144,7 +145,7 @@ export function SiteFooter() {
           <div className="footer-links">
             <a href="/#services">Our services</a>
             <a href="/#about">About us</a>
-            <Link to="/shop">Shop</Link>
+            <a href={SHOP_URL}>Shop</a>
             <Link to="/faq">FAQ</Link>
             <a href={`mailto:${contactEmail}`}>{contactEmail}</a>
             <a href="https://www.instagram.com/vandam3d/" target="_blank" rel="noreferrer">

@@ -55,17 +55,17 @@ describe("old WordPress redirects", () => {
     expect(go("https://www.vd3d.com.au/faq?x=1")).toBe("https://vd3d.com.au/faq?x=1");
   });
 
-  it("leaves new pages alone, including the new /shop page", () => {
-    for (const path of [
-      "/",
-      "/quote",
-      "/faq",
-      "/shop",
-      "/shop/",
-      "/services/3d-printing",
-      "/api/quote",
-    ])
+  it("leaves new pages alone", () => {
+    for (const path of ["/", "/quote", "/faq", "/services/3d-printing", "/api/quote"])
       expect(go(`https://vd3d.com.au${path}`)).toBeNull();
+  });
+
+  it("sends /shop to the live shop once it's open, and serves it before then", () => {
+    for (const path of ["/shop", "/shop/"]) {
+      const r = redirectFor(new URL(`https://vd3d.com.au${path}`));
+      if (SHOP_LIVE) expect(r).toEqual({ location: "https://shop.vd3d.com.au/", status: 301 });
+      else expect(r).toBeNull();
+    }
   });
 
   it("marks pages.dev hosts as non-canonical", () => {
